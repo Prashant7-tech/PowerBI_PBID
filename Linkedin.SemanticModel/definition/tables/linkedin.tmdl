@@ -1,0 +1,169 @@
+table linkedin
+	lineageTag: b7117a31-7ca1-4573-a29c-756f95a9882c
+
+	measure CTR = DIVIDE(sum(linkedin[clicks]),SUM(linkedin[impressions]),0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3e98de3a-fe52-425c-86db-c94a7c6a419c
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f7c3a858-5ba4-454c-b03c-b4835160f5fd
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: c09782c2-8d8f-40e4-9d09-8973253f97c9
+			defaultHierarchy: LocalDateTable_8495c501-db8b-4e3d-8fdd-5107e9fa4c1b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column followers
+		dataType: int64
+		formatString: 0
+		lineageTag: 0cdb03ce-cd51-4f60-9020-68e602d839c2
+		summarizeBy: sum
+		sourceColumn: followers
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: c150d865-56a6-48af-bbde-a72afa6a877d
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column device
+		dataType: string
+		lineageTag: 87c7afd5-45e7-48dd-a75c-77c57f96e8cc
+		summarizeBy: none
+		sourceColumn: device
+
+		annotation SummarizationSetBy = Automatic
+
+	column page_name
+		dataType: string
+		lineageTag: 9afd9800-7c6f-49cd-9c2d-1aded01763a6
+		summarizeBy: none
+		sourceColumn: page_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column page_views
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e48ff54-1e97-4bfd-bd0a-c0722025c67d
+		summarizeBy: sum
+		sourceColumn: page_views
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_pageviews
+		dataType: int64
+		formatString: 0
+		lineageTag: ce5dc7aa-0952-4eb2-a2e5-d4bb445345c9
+		summarizeBy: sum
+		sourceColumn: unique_pageviews
+
+		annotation SummarizationSetBy = Automatic
+
+	column uniqueimpressionscount
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e436e9d-136f-4168-9191-bc725285d10b
+		summarizeBy: sum
+		sourceColumn: uniqueimpressionscount
+
+		annotation SummarizationSetBy = Automatic
+
+	column update_title
+		dataType: string
+		lineageTag: 2f0b133f-0f77-447d-8da8-0aae65bcd842
+		summarizeBy: none
+		sourceColumn: update_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column posted_by
+		dataType: string
+		lineageTag: 420fa9bf-9f83-4d4c-b6e0-3c0a52069070
+		summarizeBy: none
+		sourceColumn: posted_by
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions
+		dataType: int64
+		formatString: 0
+		lineageTag: b04b86e5-3792-4d02-bc8f-be4852db1f7b
+		summarizeBy: sum
+		sourceColumn: impressions
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks
+		dataType: int64
+		formatString: 0
+		lineageTag: 14eb4591-039a-440c-8ae6-30c3a25ac795
+		summarizeBy: sum
+		sourceColumn: clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column reactions
+		dataType: int64
+		formatString: 0
+		lineageTag: deb7943f-e0e1-4e8f-a78a-45d35b9e97f2
+		summarizeBy: sum
+		sourceColumn: reactions
+
+		annotation SummarizationSetBy = Automatic
+
+	column comments
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f22a054-0e7d-47e1-a169-a53728183566
+		summarizeBy: sum
+		sourceColumn: comments
+
+		annotation SummarizationSetBy = Automatic
+
+	column shares
+		dataType: int64
+		formatString: 0
+		lineageTag: b633eff2-6822-4c18-be8b-cf379216241c
+		summarizeBy: sum
+		sourceColumn: shares
+
+		annotation SummarizationSetBy = Automatic
+
+	column audience
+		dataType: int64
+		formatString: 0
+		lineageTag: fa5622d3-b93b-48a6-818c-87cf7ac50437
+		summarizeBy: sum
+		sourceColumn: audience
+
+		annotation SummarizationSetBy = Automatic
+
+	partition linkedin = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\Prashant\Downloads\linkedin"),
+				    #"C:\Users\Prashant\Downloads\linkedin\_LinkedIn csv" = Source{[#"Folder Path"="C:\Users\Prashant\Downloads\linkedin\",Name="LinkedIn.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\Prashant\Downloads\linkedin\_LinkedIn csv",[Delimiter=",", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"date", type date}, {"followers", Int64.Type}, {"type", type text}, {"device", type text}, {"page_name", type text}, {"page_views", Int64.Type}, {"unique_pageviews", Int64.Type}, {"uniqueimpressionscount", Int64.Type}, {"update_title", type text}, {"posted_by", type text}, {"impressions", Int64.Type}, {"clicks", Int64.Type}, {"reactions", Int64.Type}, {"comments", Int64.Type}, {"shares", Int64.Type}, {"audience", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

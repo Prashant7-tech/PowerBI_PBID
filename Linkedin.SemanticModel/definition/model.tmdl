@@ -1,0 +1,22 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["linkedin"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.144.1155.0 (25.06)+46435b07013d2a234d7fd007083a9e70b8e79f1c
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table linkedin
+ref table DateTableTemplate_3861a37c-e8ca-4cbd-a139-e7e1dcac1f6e
+ref table LocalDateTable_8495c501-db8b-4e3d-8fdd-5107e9fa4c1b
+
+ref cultureInfo en-IN
+

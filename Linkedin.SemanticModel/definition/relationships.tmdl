@@ -1,0 +1,5 @@
+relationship c09782c2-8d8f-40e4-9d09-8973253f97c9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: linkedin.date
+	toColumn: LocalDateTable_8495c501-db8b-4e3d-8fdd-5107e9fa4c1b.Date
+
